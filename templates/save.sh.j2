@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# {{ ansible_managed }}
+
+LOGFILE="{{ worlds_dir }}/{{ world_name }}/save.log"
+DATE=$(/bin/date +%Y%m%d.%N)
+
+# Log the start
+echo "$(/bin/date --rfc-3339=seconds) $0 Starting Execution" | tee -a "${LOGFILE}"
+
+# Save the Server and let it complete saving state
+/usr/bin/screen -S {{ world_name }}{{ server_port }} -p0 -X stuff 'save^M'
+sleep 3
+
+# Copy the resulting backup file to backup directory
+echo "$(/bin/date --rfc-3339=seconds) Copying backup file with timestamp $DATE" | tee -a "${LOGFILE}"
+echo -n "$(/bin/date --rfc-3339=seconds) " | tee -a "${LOGFILE}"
+/bin/cp -va {{ worlds_dir }}/{{ world_name }}/{{ world_name }}.wld.bak {{ worlds_dir }}/{{ world_name }}/backups/{{ world_name }}.wld.bak-"${DATE}" | tee -a "${LOGFILE}"
+
+# Delete old world files
+echo "$(/bin/date --rfc-3339=seconds) Removing expired backups." | tee -a "${LOGFILE}"
+/usr/bin/find {{ worlds_dir }}/{{ world_name }}/ -name "{{ world_name }}.wld.bak-*" -type f -mmin +{{ backup_preserve_age_minutes }} -print -delete | tee -a "${LOGFILE}"
+
+# Log the end
+echo "$(/bin/date --rfc-3339=seconds) $0 Ending Execution" | tee -a "${LOGFILE}"

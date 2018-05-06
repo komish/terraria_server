@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# {{ ansible_managed }}
+
+/usr/bin/screen -S {{ world_name }}{{ server_port }} -p0 -X stuff '{{ worlds_dir }}/{{ world_name }}/bin/{{ server_binary }} -config {{ worlds_dir }}/{{ world_name }}/config.ini^M'

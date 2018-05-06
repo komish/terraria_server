@@ -1,0 +1,60 @@
+---
+# -- Role Configuration --
+terraria_user: "terraria"
+terraria_install_path: "/opt/terraria"
+terraria_install_path_components:
+  - worlds
+  - software
+
+world_install_path_components:
+  - bin
+  - backups
+
+worlds_dir: "{{ terraria_install_path }}/worlds"
+
+# backups older than this value in minutes will be purged
+backup_preserve_age_minutes: 720
+
+# webserver which contains server files in this format:
+#   terraria-server-<version>.zip
+# Example: 
+#   https://terraria.org/server/terraria-server-1353.zip
+# We do expect the file tree/structure to be the same as
+# can be found in zip files provided by terraria.org
+terraria_server_file_mirror: 'https://terraria.org/server'
+
+
+# -- Server Configurables --
+
+# Initial requirements - generally these are
+# what will be changed on a new deployment
+world_name: "TerraNova"
+world_motd: "A new beginning..."
+world_difficulty: "normal"
+world_size: "medium"
+world_max_players: 5
+server_lang: "en-US"
+banned_players:
+  - PlAcEhOlDeRl337
+
+
+# If you want the server to create a new world file
+# we set this to true, but if the world file as named
+# already exists the server will not recreate anything`
+world_autocreate: True
+world_seed: "ThisIsNotReallyASeed"
+
+
+# extra requirements - these defaults will likely work
+# for most people but it may need to be tweaked in some cases
+# TODO: randomize this seed
+server_port: 7777
+#server_password:
+server_npc_stream: 60
+server_system_priority: "high"
+server_upnp_enabled: False
+world_secure_level: 0
+
+
+# TODO: this is a placeholder, we should detect whether to to use x86_64 or x86
+server_binary: 'TerrariaServer.bin.x86_64'

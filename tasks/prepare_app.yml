@@ -1,0 +1,42 @@
+---
+- name: Validate if server files already in place
+  stat:
+    path: "{{ terraria_install_path }}/software/{{ terraria_version }}"
+  register: server_files
+
+- include_tasks: download_server_files.yml
+  when: (not server_files.stat.exists or not server_files.stat.isdir) or
+        (refresh_server_files is defined and refresh_server_files == "True")
+
+- name: Generate world configuration file
+  template:
+    src: templates/serverconfig.ini.j2
+    dest: "{{ worlds_dir }}/{{ world_name }}/config.ini"
+    owner: "{{ terraria_user }}"
+    group: "{{ terraria_user }}"
+
+- name: Generate banlist
+  template:
+    src: templates/banlist.txt.j2
+    dest: "{{ worlds_dir }}/{{ world_name }}/banlist.txt"
+    owner: "{{ terraria_user }}"
+    group: "{{ terraria_user }}"
+  tags:
+    - update_banlist
+
+- name: Render Start Script
+  template:
+    src: templates/{{ item }}.j2
+    dest: "{{ worlds_dir }}/{{ world_name }}/bin/{{ item }}"
+    owner: "{{ terraria_user }}"
+    group: "{{ terraria_user }}"
+    mode: 0744
+  with_items:
+    - start.sh
+    - save.sh
+
+- name: Link binary into world directory structure
+  file:
+    src: "{{ terraria_install_path }}/software/{{ terraria_version }}/Linux/{{ server_binary }}"
+    dest: "{{ worlds_dir }}/{{ world_name }}/bin/{{ server_binary }}"
+    state: link

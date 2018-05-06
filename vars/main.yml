@@ -1,0 +1,20 @@
+---
+# for use with `world_difficulty`
+difficulty_map:
+  normal: 0
+  expert: 1
+
+# for use with `world_size`
+size_map:
+  small: 1
+  medium: 2
+  large: 3
+
+# for use with `server_system_priority`
+priority_map:
+  realtime: 0
+  high: 1
+  abovenormal: 2
+  normal: 3
+  belownormal: 4
+  idle: 5

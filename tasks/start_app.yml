@@ -1,0 +1,39 @@
+---
+- name: Save and stop the server (if applicable)
+  # TODO: This should use become
+  command: "su - {{ terraria_user }} -s /bin/sh -c 'screen -S {{ world_name }}{{ server_port }} -p0 -X stuff \"exit^M\"'"
+  ignore_errors: yes
+  tags: start_app
+
+- name: Allow time for server to save and cleanly exit
+  pause:
+    seconds: 5
+  tags: start_app
+
+- name: Stop the existing screen session (if applicable)
+  # TODO: This should use become
+  command: "su - {{ terraria_user }} -s /bin/sh -c 'screen -S {{ world_name }}{{ server_port }} -p0 -X stuff \"exit^M\"'"
+  ignore_errors: yes
+  tags: start_app
+
+- name: start the screen session
+  # TODO: using become seems like the right answer here but does not seem to work expected
+  # implementing workaround for the time being
+  command: "su - {{ terraria_user }} -s /bin/sh -c 'screen -dmS {{ world_name }}{{ server_port }}'"
+  tags: start_app
+
+- name: start the server in the screen session
+  command: "su - {{ terraria_user }} -s /bin/sh -c '{{ worlds_dir }}/{{ world_name }}/bin/start.sh'"
+  tags: start_app 
+
+- name: Configure cron to periodically save world
+  cron:
+    user: "{{ terraria_user }}"
+    name: "{{ world_name }}{{ server_port }}-savestate"
+    month: "*"
+    day: "*"
+    hour: "*"
+    minute: "*/30"
+    state: present
+    value: "{{ worlds_dir }}/{{ world_name }}/bin/save.sh"
+  tags: start_app

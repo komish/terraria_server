@@ -1,0 +1,24 @@
+---
+- name: Obtain server file(s)
+  get_url:
+    url: "{{ terraria_server_file_mirror }}/terraria-server-{{ terraria_version }}.zip"
+    dest: "{{ terraria_install_path }}/software/{{ terraria_version }}.zip"
+    owner: "{{ terraria_user }}"
+    group: "{{ terraria_user }}"
+    timeout: 30
+
+- name: Unpack Server file
+  unarchive:
+    remote_src: yes
+    src: "{{ terraria_install_path }}/software/{{ terraria_version }}.zip"
+    dest: "{{ terraria_install_path }}/software/"
+    owner: "{{ terraria_user }}"
+    group: "{{ terraria_user }}"
+
+- name: Make Linux server binaries executable
+  file:
+    path: "{{ terraria_install_path }}/software/{{ terraria_version }}/Linux/{{ item }}"
+    mode:  0744
+  with_items:
+    - TerrariaServer.bin.x86
+    - TerrariaServer.bin.x86_64

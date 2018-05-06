@@ -1,0 +1,7 @@
+---
+- include_tasks: preflight.yml
+- include_tasks: prepare_host.yml
+- include_tasks: prepare_app.yml
+- include_tasks: start_app.yml
+  tags: start_app
+# - include:

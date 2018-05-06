@@ -1,0 +1,5 @@
+---
+- name: Validate version variable is set
+  assert:
+    msg: "'terraria_version' must be defined."
+    that: terraria_version is defined
