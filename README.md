@@ -8,7 +8,7 @@ Configures:
 * save scripts (executed every 30)
 * backups (rotated every 720 minutes by default)
 
-<p align="left">
+<p align="center">
   <img width="800" src="tree.png">
 </p>
 
