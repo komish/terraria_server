@@ -1,11 +1,11 @@
-# terraria_server
+# Ansible Role: terraria_server
 
-Ansible role to deploy and manage Terraria server against a linux host(s)
+An ansible role to automate deployment of the terraria on linux hosts
 
 Configures:
 * a service user
 * start scripts (executed in a screen session)
-* save scripts (executed every 30)
+* save scripts (executed every 30 minutes)
 * backups (rotated every 720 minutes by default)
 
 <p align="center">
@@ -82,7 +82,3 @@ Calling the role with minimum required `terraria_version` and a few configured v
     world_name: "Iceland"
     server_port: 7878
 ```
-
-## Known Issues
-
-* The name of the world must be one word. Example: "Terra Nova" is not valid, but "TerraNova" is valid.
