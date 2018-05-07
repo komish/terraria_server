@@ -79,6 +79,36 @@ Calling the role with minimum required `terraria_version` and a few configured v
   roles:
   - role: terraria_server
     terraria_version: 1353
-    world_name: "Iceland"
-    server_port: 7878
+    world_name: "WorldOne"
+    server_port: 7777
+```
+
+An example playbook using `host_vars` to deploy multiple instances of the software:
+
+```yaml
+---
+- hosts: servers
+  tasks:
+  - include_role: 
+      name: terraria_server
+    vars: 
+      terraria_version: "{{ worldconfig.terraria_version }}"
+      world_name: "{{ worldconfig.world_name }}"
+      server_port: "{{ worldconfig.server_port }}"
+    with_items: "{{ hostvars[inventory_hostname].worlds }}"
+    loop_control:
+      loop_var: worldconfig
+```
+
+and the complementary variable definition:
+
+```yaml
+---
+worlds:
+  - world_name: "WorldOne"
+    terraria_version: 1353
+    server_port: 7777
+  - world_name: "WorldTwo"
+    terraria_version: 1353
+    server_port: 7778
 ```
