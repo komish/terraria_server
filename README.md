@@ -1,6 +1,6 @@
 # Ansible Role: terraria_server
 
-An ansible role to automate deployment of the terraria on linux hosts
+An ansible role to automate deployment of Terraria on linux hosts
 
 Configures:
 * a service user
