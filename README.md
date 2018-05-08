@@ -30,44 +30,11 @@ terraria_version: 1353
 
 ### Common Variables
 
-```yaml
-# name used for your world (string)
-world_name:
-
-# motd used for your world (string)
-world_motd:
-
-# auto-create the world, for new worlds (boolean)
-world_autocreate: 
-
-# world seed (string)
-world_seed: 
-
-# difficulty (string - options: normal, expert)
-world_difficulty:
-
-# size (string - options: small, medium, large)
-world_size:
-
-# player cap for your world (int)
-world_max_players:
-
-# If you want a password protected server (string)
-server_password:
-
-# language (string - see options: https://terraria.gamepedia.com/Server)
-server_lang:
-
-# banned players (list)
-banned_players:
-
-# enable UPNP (boolean)
-server_upnp_enabled:
-```
+Check out the [wiki/Getting-Started](https://github.com/Komish/terraria_server/wiki/Getting-Started) page for Terraria server-specific variables for a common use case (single server, single instance)
 
 ### All Variables
 
-Work-In-Progress
+Documentation on all variables can be found in the [wiki/Role-Variables](https://github.com/Komish/terraria_server/wiki/Role-Variables)
 
 ## Example Playbook
 
@@ -81,34 +48,4 @@ Calling the role with minimum required `terraria_version` and a few configured v
     terraria_version: 1353
     world_name: "WorldOne"
     server_port: 7777
-```
-
-An example playbook using `host_vars` to deploy multiple instances of the software:
-
-```yaml
----
-- hosts: servers
-  tasks:
-  - include_role: 
-      name: terraria_server
-    vars: 
-      terraria_version: "{{ worldconfig.terraria_version }}"
-      world_name: "{{ worldconfig.world_name }}"
-      server_port: "{{ worldconfig.server_port }}"
-    with_items: "{{ hostvars[inventory_hostname].worlds }}"
-    loop_control:
-      loop_var: worldconfig
-```
-
-and the complementary variable definition:
-
-```yaml
----
-worlds:
-  - world_name: "WorldOne"
-    terraria_version: 1353
-    server_port: 7777
-  - world_name: "WorldTwo"
-    terraria_version: 1353
-    server_port: 7778
 ```
