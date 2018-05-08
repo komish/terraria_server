@@ -30,7 +30,7 @@ terraria_version: 1353
 
 ### Common Variables
 
-Check out the [wiki](https://github.com/Komish/terraria_server/wiki/0.-Getting-Started) page for Terraria server-specific variables for a common use case (single server, single instance)
+Check out the [Getting Started](https://github.com/Komish/terraria_server/wiki/0.-Getting-Started) page for Terraria server-specific variables for a common use case (single server, single instance)
 
 ### All Variables
 
