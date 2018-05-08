@@ -30,11 +30,11 @@ terraria_version: 1353
 
 ### Common Variables
 
-Check out the [wiki/Getting-Started](https://github.com/Komish/terraria_server/wiki/Getting-Started) page for Terraria server-specific variables for a common use case (single server, single instance)
+Check out the [wiki](https://github.com/Komish/terraria_server/wiki/0.-Getting-Started) page for Terraria server-specific variables for a common use case (single server, single instance)
 
 ### All Variables
 
-Documentation on all variables can be found in the [wiki/Role-Variables](https://github.com/Komish/terraria_server/wiki/Role-Variables)
+Documentation on all variables can be found in the [wiki](https://github.com/Komish/terraria_server/wiki/1.-Role-Variables)
 
 ## Example Playbook
 
